@@ -47,7 +47,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [currentSurah, setCurrentSurah] = useState<number | null>(null);
   const [currentAyah, setCurrentAyah] = useState<number | null>(null);
   const [globalAyah, setGlobalAyah] = useState<number | null>(null);
-  const [reciter, setReciterState] = useState("ar.alafasy");
+  const [reciter, setReciterState] = useState(() => {
+    return localStorage.getItem("quran_reciter") || "ar.alafasy";
+  });
   const [playbackRate, setPlaybackRateState] = useState(1);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -121,7 +123,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     setCurrentAyah((prev) => (prev && prev > 1 ? prev - 1 : prev));
   };
 
-  const setReciter = (r: string) => setReciterState(r);
+  const setReciter = (r: string) => {
+    setReciterState(r);
+    localStorage.setItem("quran_reciter", r);
+  };
   const setPlaybackRate = (r: number) => setPlaybackRateState(r);
   const seek = (t: number) => {
     if (audioRef.current) {

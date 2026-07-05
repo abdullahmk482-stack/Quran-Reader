@@ -1,0 +1,101 @@
+Create a modern Quran Reading website inspired by the user experience and functionality of SurahQuran.com, but DO NOT copy its layout, colors, graphics, or visual design. Create a unique, original interface with a premium Islamic aesthetic.
+
+Design Style:
+- Clean and minimal.
+- Emerald Green, White, Beige, and Gold color palette.
+- Elegant Islamic geometric patterns.
+- Rounded cards (18px).
+- Smooth animations.
+- Glass effect navigation.
+- Fully responsive.
+- Fast loading.
+
+Homepage Layout:
+- Premium hero section with Islamic calligraphy.
+- Large Search Bar.
+- Quick access cards:
+  • Read by Surah
+  • Read by Juz
+  • Read by Page
+  • Listen to Quran
+- Continue Reading section.
+- Daily Verse card.
+- Recently Read section.
+- Most Popular Surahs.
+- Beautiful footer.
+
+Navigation:
+- Home
+- Surahs
+- Juz
+- Pages
+- Audio
+- Bookmarks
+- About
+
+Quran Reading:
+- Display all 114 Surahs.
+- Search by Surah name or number.
+- Read by Mushaf page (604 pages).
+- Read by Juz.
+- Display Makki/Madani.
+- Ayah count.
+- Revelation information.
+
+Reading Page:
+- Elegant centered reading layout.
+- Uthmani Arabic font.
+- Large readable typography.
+- Adjustable font size.
+- Dark / Light / Sepia themes.
+- Sticky toolbar.
+- Previous / Next Surah.
+- Bookmark Ayah.
+- Copy Ayah.
+- Share Ayah.
+- Reading progress indicator.
+
+Translations:
+- English
+- Urdu
+- Hindi
+- Show/Hide translations.
+- Transliteration option.
+
+Audio:
+- Ayah-by-Ayah playback.
+- Full Surah playback.
+- Multiple reciters.
+- Speed control.
+- Repeat options.
+- Auto next Ayah.
+
+Search:
+- Instant search.
+- Search Surah.
+- Search Ayah text.
+- Highlight search results.
+
+Extra Features:
+- Favorites.
+- Reading History.
+- Daily Quran Verse.
+- Notes on Ayahs.
+- Offline support (PWA).
+- Install as Mobile App.
+
+Technology:
+- HTML5
+- CSS3
+- JavaScript (ES6)
+OR
+- Next.js + React + Tailwind CSS + TypeScript
+
+Use a free Quran API to fetch:
+- Arabic text
+- English translation
+- Urdu translation
+- Hindi translation
+- Audio recitations
+
+The final website should provide a reading experience similar in functionality to SurahQuran.com while having its own unique branding, original layout, original icons, original color scheme, and modern premium interface.

@@ -14,17 +14,20 @@ export function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/quran" className="hover:text-primary transition-colors">Read Quran</Link></li>
-              <li><Link href="/audio" className="hover:text-primary transition-colors">Listen Audio</Link></li>
-              <li><Link href="/bookmarks" className="hover:text-primary transition-colors">Bookmarks</Link></li>
-              <li><Link href="/search" className="hover:text-primary transition-colors">Search</Link></li>
+              <li><Link href="/quran" className="hover:text-primary transition-colors">Surahs</Link></li>
+              <li><Link href="/juz" className="hover:text-primary transition-colors">Juz</Link></li>
+              <li><Link href="/pages" className="hover:text-primary transition-colors">Pages</Link></li>
+              <li><Link href="/audio" className="hover:text-primary transition-colors">Audio</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">About</h4>
+            <h4 className="font-semibold mb-4">Community & Resources</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><Link href="/bookmarks" className="hover:text-primary transition-colors">Bookmarks</Link></li>
+              <li><Link href="/notes" className="hover:text-primary transition-colors">Notes</Link></li>
               <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
               <li><Link href="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
+              <li><Link href="#" className="hover:text-primary transition-colors">Privacy</Link></li>
             </ul>
           </div>
         </div>

@@ -1,7 +1,16 @@
-import { Play, Pause, SkipBack, SkipForward, FastForward, Repeat } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, FastForward, Repeat, ChevronDown } from "lucide-react";
 import { useAudio } from "@/contexts/AudioContext";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+export const RECITERS = [
+  { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy' },
+  { id: 'ar.abdurrahmaansudais', name: 'Abdurrahmaan As-Sudais' },
+  { id: 'ar.husary', name: 'Mahmoud Khalil Al-Husary' },
+  { id: 'ar.minshawi', name: 'Mohammad Siddiq Al-Minshawi' },
+  { id: 'ar.saoodshuraym', name: 'Saud Al-Shuraim' },
+];
 
 export function AudioPlayer() {
   const { 
@@ -11,12 +20,14 @@ export function AudioPlayer() {
     currentTime, 
     duration,
     playbackRate,
+    reciter,
     playSurah,
     pause,
     resume,
     nextAyah,
     prevAyah,
     setPlaybackRate,
+    setReciter,
     seek
   } = useAudio();
 
@@ -45,8 +56,22 @@ export function AudioPlayer() {
       <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center gap-4">
         
         <div className="flex-1 flex flex-col w-full md:w-auto">
-          <div className="text-sm font-medium mb-1 truncate text-center md:text-left">
-            Surah {currentSurah}, Ayah {currentAyah}
+          <div className="text-sm font-medium mb-1 truncate text-center md:text-left flex items-center justify-center md:justify-start gap-2">
+            <span>Surah {currentSurah}, Ayah {currentAyah}</span>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="h-6 px-2 text-xs text-muted-foreground gap-1">
+                  {RECITERS.find(r => r.id === reciter)?.name} <ChevronDown className="h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                {RECITERS.map(r => (
+                  <DropdownMenuItem key={r.id} onClick={() => setReciter(r.id)} className={reciter === r.id ? "bg-primary/10 text-primary font-medium" : ""}>
+                    {r.name}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <div className="flex items-center gap-2 w-full">
             <span className="text-xs text-muted-foreground w-10 text-right">{formatTime(currentTime)}</span>

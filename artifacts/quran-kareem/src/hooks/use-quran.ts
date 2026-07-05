@@ -79,4 +79,30 @@ export const useSearch = (query: string) => {
     enabled: !!query && query.length >= 3,
     staleTime: 1000 * 60 * 5, // 5 mins
   });
-}
+};
+
+export const useTransliteration = (surahNumber: number) => {
+  return useQuery({
+    queryKey: ["transliteration", surahNumber],
+    queryFn: async () => {
+      const res = await fetch(`${BASE_URL}/surah/${surahNumber}/en.transliteration`);
+      const data = await res.json();
+      return data.data.ayahs as Ayah[];
+    },
+    enabled: !!surahNumber,
+    staleTime: Infinity,
+  });
+};
+
+export const usePage = (pageNum: number) => {
+  return useQuery({
+    queryKey: ["page", pageNum],
+    queryFn: async () => {
+      const res = await fetch(`${BASE_URL}/page/${pageNum}/ar.uthmani`);
+      const data = await res.json();
+      return data.data;
+    },
+    enabled: !!pageNum && pageNum >= 1 && pageNum <= 604,
+    staleTime: Infinity,
+  });
+};

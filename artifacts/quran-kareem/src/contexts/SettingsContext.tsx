@@ -11,6 +11,8 @@ type SettingsState = {
   setFontSize: (size: number) => void;
   translations: TranslationPrefs;
   toggleTranslation: (lang: keyof TranslationPrefs) => void;
+  showTransliteration: boolean;
+  setShowTransliteration: (show: boolean) => void;
 };
 
 const defaultState: SettingsState = {
@@ -18,6 +20,8 @@ const defaultState: SettingsState = {
   setFontSize: () => {},
   translations: { english: true, urdu: false, hindi: false },
   toggleTranslation: () => {},
+  showTransliteration: false,
+  setShowTransliteration: () => {},
 };
 
 export const SettingsContext = createContext<SettingsState>(defaultState);
@@ -32,6 +36,16 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem("quran_translations");
     return saved ? JSON.parse(saved) : { english: true, urdu: false, hindi: false };
   });
+
+  const [showTransliteration, setShowTransliterationState] = useState<boolean>(() => {
+    const saved = localStorage.getItem("quran_show_transliteration");
+    return saved ? JSON.parse(saved) : false;
+  });
+
+  const setShowTransliteration = (show: boolean) => {
+    setShowTransliterationState(show);
+    localStorage.setItem("quran_show_transliteration", JSON.stringify(show));
+  };
 
   const setFontSize = (size: number) => {
     const newSize = Math.max(20, Math.min(60, size));
@@ -48,7 +62,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <SettingsContext.Provider value={{ fontSize, setFontSize, translations, toggleTranslation }}>
+    <SettingsContext.Provider value={{ fontSize, setFontSize, translations, toggleTranslation, showTransliteration, setShowTransliteration }}>
       {children}
     </SettingsContext.Provider>
   );

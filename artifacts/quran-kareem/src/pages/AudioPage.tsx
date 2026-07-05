@@ -7,14 +7,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 
 const RECITERS = [
-  { id: "ar.alafasy", name: "Mishary Rashid Alafasy" },
-  { id: "ar.abdulbasitmurattal", name: "Abdul Basit (Murattal)" },
-  { id: "ar.abdullahbasfar", name: "Abdullah Basfar" },
-  { id: "ar.abdurrahmaansudais", name: "Abdurrahmaan As-Sudais" },
-  { id: "ar.hudhaify", name: "Ali Al Huthaify" },
-  { id: "ar.husary", name: "Ali Hajjaj AlSuesy" },
-  { id: "ar.minshawi", name: "Husary" },
-  { id: "ar.muhammadayyoub", name: "Muhammad Ayyoub" },
+  { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy' },
+  { id: 'ar.abdurrahmaansudais', name: 'Abdurrahmaan As-Sudais' },
+  { id: 'ar.husary', name: 'Mahmoud Khalil Al-Husary' },
+  { id: 'ar.minshawi', name: 'Mohammad Siddiq Al-Minshawi' },
+  { id: 'ar.saoodshuraym', name: 'Saud Al-Shuraim' },
 ];
 
 export function AudioPage() {

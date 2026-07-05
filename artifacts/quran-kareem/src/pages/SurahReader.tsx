@@ -1,16 +1,16 @@
 import { useParams, Link } from "wouter";
-import { useSurahDetail, Ayah } from "@/hooks/use-quran";
+import { useSurahDetail, useTransliteration, Ayah } from "@/hooks/use-quran";
 import { AyahRow } from "@/components/AyahRow";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts/SettingsContext";
 import { useTheme } from "@/components/ThemeProvider";
-import { Settings2, ArrowLeft, ArrowRight, Type, BookOpen, Volume2 } from "lucide-react";
+import { Settings2, ArrowLeft, ArrowRight, Type, BookOpen, Volume2, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAudio } from "@/contexts/AudioContext";
 import { motion } from "framer-motion";
 
@@ -19,9 +19,11 @@ export function SurahReader() {
   const num = parseInt(surahNumber || "1", 10);
   
   const { data, isLoading } = useSurahDetail(num);
-  const { fontSize, setFontSize, translations, toggleTranslation } = useSettings();
+  const { data: transliterationData } = useTransliteration(num);
+  const { fontSize, setFontSize, translations, toggleTranslation, showTransliteration, setShowTransliteration } = useSettings();
   const { theme, setTheme } = useTheme();
   const { playSurah, pause, isPlaying, currentSurah } = useAudio();
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   // Save to recently read
   useEffect(() => {
@@ -31,6 +33,18 @@ export function SurahReader() {
       localStorage.setItem("quran_recent", JSON.stringify(newRecent));
     }
   }, [data, num]);
+
+  // Track scroll progress
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scroll = `${(totalScroll / windowHeight) * 100}%`;
+      setScrollProgress((totalScroll / windowHeight) * 100);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -83,6 +97,9 @@ export function SurahReader() {
 
   return (
     <div className="min-h-screen pb-32">
+      {/* Scroll Progress Bar */}
+      <div className="fixed top-0 left-0 h-1 bg-primary z-50 transition-all duration-150 ease-out" style={{ width: `${scrollProgress}%` }} />
+
       {/* Sticky Top Control Bar */}
       <div className="sticky top-16 z-40 bg-background/95 backdrop-blur border-b shadow-sm">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -93,8 +110,9 @@ export function SurahReader() {
               </Button>
             </Link>
             
-            <div className="text-sm md:text-base font-semibold truncate hidden sm:block">
+            <div className="text-sm md:text-base font-semibold truncate hidden sm:flex items-center gap-2">
               {data.meta.englishName}
+              {theme === "sepia" && <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded uppercase tracking-wider">Sepia Mode</span>}
             </div>
 
             <Link href={`/quran/${num < 114 ? num + 1 : 114}`}>
@@ -164,6 +182,16 @@ export function SurahReader() {
                       </div>
                     </div>
                   </div>
+                  
+                  <div className="space-y-3 pt-3 border-t">
+                    <h4 className="font-medium flex items-center gap-2">
+                      <Globe className="h-4 w-4 text-primary" /> Transliteration
+                    </h4>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="transliteration" className="cursor-pointer text-sm text-muted-foreground">Show Latin reading</Label>
+                      <Switch id="transliteration" checked={showTransliteration} onCheckedChange={(val) => setShowTransliteration(val)} />
+                    </div>
+                  </div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -206,6 +234,7 @@ export function SurahReader() {
                 english={data.translations.english?.[index]}
                 urdu={data.translations.urdu?.[index]}
                 hindi={data.translations.hindi?.[index]}
+                transliteration={transliterationData?.[index]}
               />
             );
           })}

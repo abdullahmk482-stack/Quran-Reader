@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearch } from "@/hooks/use-quran";
 import { Input } from "@/components/ui/input";
-import { Search as SearchIcon, ArrowRight } from "lucide-react";
+import { Search as SearchIcon, ArrowRight, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function Search() {
+  const [location] = useLocation();
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q");
+    if (q) setQuery(q);
+  }, [location]);
+
   const { data, isLoading } = useSearch(query);
 
   return (
@@ -30,7 +38,10 @@ export function Search() {
             placeholder="Type a word or phrase (e.g. 'light', 'prayer')..." 
             className="pl-14 h-16 text-xl rounded-full border-2 border-primary/20 focus-visible:ring-primary shadow-sm"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              window.history.replaceState(null, '', `?q=${encodeURIComponent(e.target.value)}`);
+            }}
           />
         </div>
       </motion.div>
@@ -55,38 +66,48 @@ export function Search() {
             Found {data.count} results for "{query}"
           </div>
           
-          {data.matches.map((match: any, idx: number) => (
-            <motion.div
-              key={`${match.surah.number}-${match.numberInSurah}-${idx}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              className="bg-card border rounded-xl p-6 hover:border-primary/50 transition-colors group relative"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                  {match.surah.englishName} <span className="opacity-50">•</span> {match.surah.number}:{match.numberInSurah}
+          {data.matches.map((match: any, idx: number) => {
+            // Highlight search term
+            const regex = new (window as any).RegExp(`(${query})`, "gi");
+            const highlightedText = match.text.replace(regex, `<span class="bg-primary/20 text-primary font-bold px-1 rounded">$1</span>`);
+            
+            return (
+              <motion.div
+                key={`${match.surah.number}-${match.numberInSurah}-${idx}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.05 }}
+                className="bg-card border rounded-xl p-6 hover:border-primary/50 transition-colors group relative shadow-sm"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                    {match.surah.englishName} <span className="opacity-50">•</span> {match.surah.number}:{match.numberInSurah}
+                  </div>
+                  
+                  <Link href={`/quran/${match.surah.number}`}>
+                    <span className="text-sm font-medium text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                      Read <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </Link>
                 </div>
                 
-                <Link href={`/quran/${match.surah.number}`}>
-                  <span className="text-sm font-medium text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                    Read <ArrowRight className="w-4 h-4" />
-                  </span>
-                </Link>
-              </div>
-              
-              <p className="text-lg font-serif leading-relaxed text-foreground/90" dangerouslySetText={match.text} />
-              {/* Note: In a real app we'd highlight the search term, but API returns raw text without highlights usually. */}
-            </motion.div>
-          ))}
+                <p className="text-lg font-serif leading-relaxed text-foreground/90" dangerouslySetText={{__html: highlightedText}} />
+              </motion.div>
+            );
+          })}
         </div>
       )}
 
       {data && data.matches && data.matches.length === 0 && query.length >= 3 && (
-        <div className="text-center py-20">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center py-20 bg-card border rounded-2xl"
+        >
+          <BookOpen className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
           <div className="text-xl font-medium mb-2">No results found</div>
-          <p className="text-muted-foreground">Try searching with different keywords.</p>
-        </div>
+          <p className="text-muted-foreground max-w-sm mx-auto">We couldn't find any verses matching "{query}". Try searching with different keywords.</p>
+        </motion.div>
       )}
     </div>
   );

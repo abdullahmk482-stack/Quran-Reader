@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Moon, Sun, Menu, Search, BookOpen, Headphones, Bookmark, Info } from "lucide-react";
+import { Moon, Sun, Sunset, Menu, Search, BookOpen, Headphones, Bookmark, Info, Layers, FileText, PenSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./ThemeProvider";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -11,15 +11,19 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    if (theme === "light") setTheme("sepia");
+    else if (theme === "sepia") setTheme("dark");
+    else setTheme("light");
   };
 
   const navLinks = [
     { href: "/", label: "Home", icon: BookOpen },
-    { href: "/quran", label: "Read", icon: BookOpen },
-    { href: "/audio", label: "Listen", icon: Headphones },
-    { href: "/search", label: "Search", icon: Search },
+    { href: "/quran", label: "Surahs", icon: BookOpen },
+    { href: "/juz", label: "Juz", icon: Layers },
+    { href: "/pages", label: "Pages", icon: FileText },
+    { href: "/audio", label: "Audio", icon: Headphones },
     { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
+    { href: "/notes", label: "Notes", icon: PenSquare },
     { href: "/about", label: "About", icon: Info },
   ];
 
@@ -48,8 +52,10 @@ export function Navbar() {
 
         <div className="flex flex-1 items-center justify-end space-x-4">
           <Button variant="ghost" size="icon" onClick={toggleTheme}>
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
+            {theme === 'sepia' && <Sunset className="h-[1.2rem] w-[1.2rem] text-orange-500" />}
+            {theme === 'dark' && <Moon className="h-[1.2rem] w-[1.2rem]" />}
+            {theme === 'system' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
             <span className="sr-only">Toggle theme</span>
           </Button>
 

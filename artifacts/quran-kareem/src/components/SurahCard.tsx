@@ -34,7 +34,7 @@ export function SurahCard({ surah, index }: { surah: SurahMeta; index: number })
       transition={{ delay: index * 0.02, duration: 0.3 }}
     >
       <Link href={`/quran/${surah.number}`}>
-        <div className="group relative bg-card hover:bg-accent/30 border border-border/60 hover:border-primary/50 transition-all rounded-xl p-5 flex items-center justify-between cursor-pointer shadow-sm hover:shadow-md">
+        <div className="group relative bg-card hover:bg-accent/30 border border-border/60 hover:border-primary/50 transition-all rounded-xl p-5 flex items-center justify-between cursor-pointer shadow-sm hover:shadow-md hover:border-l-2 hover:border-l-primary/60">
           
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-medium text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">

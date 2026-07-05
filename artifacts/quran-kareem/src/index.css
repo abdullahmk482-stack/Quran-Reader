@@ -264,6 +264,22 @@
   --shadow-2xl: 0px 2px 0px 0px rgba(0,0,0, 0.2);
 }
 
+[data-theme="sepia"] {
+  --background: 43 60% 91%;
+  --foreground: 25 40% 15%;
+  --card: 43 55% 88%;
+  --card-foreground: 25 40% 15%;
+  --primary: 152 76% 28%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 43 96% 40%;
+  --secondary-foreground: 25 40% 10%;
+  --muted: 43 40% 85%;
+  --muted-foreground: 25 30% 40%;
+  --border: 43 35% 78%;
+  --accent: 43 80% 82%;
+  --accent-foreground: 25 40% 15%;
+}
+
 @layer base {
   * {
     @apply border-border;
