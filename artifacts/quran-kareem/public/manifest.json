@@ -1,0 +1,16 @@
+{
+  "name": "Quran Kareem",
+  "short_name": "Quran",
+  "description": "A premium, modern Quran reading companion.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#106e40",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

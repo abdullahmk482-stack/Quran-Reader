@@ -1,0 +1,111 @@
+Create a modern, elegant, and fully responsive Quran Reading website with a premium Islamic design.
+
+Website Name:
+Quran Kareem
+
+Theme:
+Use a clean white, emerald green, and gold color scheme with beautiful Islamic patterns, soft gradients, and subtle animations.
+
+Features Required:
+
+1. Home Page
+- Beautiful hero section with Quran background image.
+- Large title: "Read the Holy Quran Online"
+- Arabic verse with translation.
+- Read Quran button.
+- Smooth scrolling animations.
+
+2. Quran Reading
+- Display all 114 Surahs.
+- Search Surah by name or number.
+- Open Surah in a clean reading page.
+- Beautiful Arabic font (Uthmani style).
+- Adjustable Arabic font size.
+- Dark Mode / Light Mode.
+- Bookmark last read Ayah.
+- Continue Reading feature.
+- Copy Ayah button.
+- Share Ayah button.
+
+3. Translations
+- English Translation
+- Hindi Translation
+- Urdu Translation
+- Toggle translation on/off.
+
+4. Audio Player
+- Play full Surah.
+- Play individual Ayah.
+- Previous / Next Ayah.
+- Speed control.
+- Repeat mode.
+- Progress bar.
+
+5. Navigation
+- Sticky Navbar.
+- Home
+- Quran
+- Audio
+- Bookmarks
+- About
+- Contact
+
+6. Search
+- Instant search.
+- Search Surah.
+- Search Ayah text.
+
+7. Responsive Design
+- Desktop
+- Tablet
+- Mobile
+- Hamburger Menu
+
+8. Footer
+- Islamic quote.
+- Copyright.
+- Social icons.
+- Privacy Policy
+- Terms
+- Contact.
+
+9. Performance
+- Fast loading.
+- Lazy loading.
+- SEO optimized.
+- Accessible (WCAG).
+- Clean semantic HTML.
+
+10. Technology
+- HTML5
+- Tailwind CSS
+- JavaScript (ES6)
+- No framework required.
+- Modular code.
+- Well-commented.
+- Smooth animations.
+
+11. Extra Features
+- Daily Quran Verse.
+- Reading progress.
+- Favorite Surahs.
+- Recently Read.
+- Keyboard shortcuts.
+- Offline support using Service Worker (PWA).
+- Install as Mobile App.
+
+12. API
+Use a reliable free Quran API to fetch:
+- Surahs
+- Ayahs
+- Arabic text
+- English translation
+- Urdu translation
+- Hindi translation
+- Audio recitations
+
+13. UI Style
+Premium Islamic UI inspired by modern Quran applications.
+Rounded cards, elegant typography, glassmorphism effects, soft shadows, smooth hover animations, and beautiful icons.
+
+Generate complete production-ready code with separate HTML, CSS, and JavaScript files. The website should be fully responsive, optimized, and visually premium.
